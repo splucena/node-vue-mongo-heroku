@@ -12,14 +12,14 @@
 				<router-link to="/" class="navbar-brand"
 					><h1>Products</h1></router-link
 				>
-				<div class="navbar-nav ml-auto">
-					<router-link to="/cart" class="nav-item nav-link"
+				<div class="btn btn-danger p-0">
+					<router-link to="/cart" class="nav-item nav-link text-white"
 						>Cart
-						<span class="badge badge-pill bg-danger text-white p-2">
+						<span class="badge badge-pill bg-warning text-dark p-2 mx-1">
 							{{ totalCartItems }}
 						</span>
 						Total
-						<span class="badge badge-pill bg-danger text-white p-2">
+						<span class="badge badge-pill bg-warning text-dark p-2 mx-1">
 							{{ totalCartPrice | currency(totalCartPrice) }}
 						</span>
 					</router-link>

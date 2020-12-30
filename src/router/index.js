@@ -4,6 +4,7 @@ import ProductsPage from "../views/ProductsPage.vue";
 import ProductDetailPage from "../views/ProductDetailPage.vue";
 import CartPage from "../views/CartPage.vue";
 import Checkout from "../views/Checkout.vue";
+import NotFoundPage from "../views/NotFoundPage.vue";
 
 Vue.use(VueRouter);
 
@@ -31,6 +32,11 @@ const routes = [
 	{
 		path: "/",
 		redirect: "/products",
+	},
+	{
+		path: "*",
+		name: "NotFoundPage",
+		component: NotFoundPage,
 	},
 ];
 

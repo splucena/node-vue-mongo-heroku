@@ -1,5 +1,5 @@
 <template>
-	<div class="container w-sm-100">
+	<div class="container w-sm-100" v-if="product">
 		<div class="row m-4">
 			<div class="col">
 				<div class="d-flex align-items-center justify-content-center">
@@ -27,7 +27,11 @@
 						<button
 							class="btn btn-block"
 							@click="add(product, isInCart)"
-							:class="[isInCart === -1 ? 'btn-primary' : 'btn-outline-primary']"
+							:class="[
+								isInCart === -1
+									? 'btn-primary'
+									: 'btn-outline-primary',
+							]"
 						>
 							{{ addToCartText }}
 						</button>
@@ -40,6 +44,7 @@
 			</div>
 		</div>
 	</div>
+	<NotFoundPage v-else />
 </template>
 
 <script>
@@ -47,8 +52,13 @@ import { products } from "../fake-data.js";
 import { cartItems } from "../fake-data.js";
 import _ from "lodash";
 
+import NotFoundPage from "./NotFoundPage.vue";
+
 export default {
 	name: "ProductDetailPage",
+	components: {
+		NotFoundPage,
+	},
 	data: function() {
 		return {
 			//cartItems: [],
