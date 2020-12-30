@@ -33,9 +33,11 @@
 		<div class="float-right m-4">
 			<h4>Total {{ total | currency(total) }}</h4>
 		</div>
-		<button class="btn btn-primary btn-block btn-lg mb-4">
-			Proceed to Chechkout
-		</button>
+		<router-link to="/checkout">
+			<button class="btn btn-primary btn-block btn-lg mb-4">
+				Proceed to Checkout
+			</button>
+		</router-link>
 	</div>
 </template>
 
