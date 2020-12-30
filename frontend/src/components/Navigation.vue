@@ -15,11 +15,15 @@
 				<div class="btn btn-danger p-0">
 					<router-link to="/cart" class="nav-item nav-link text-white"
 						>Cart
-						<span class="badge badge-pill bg-warning text-dark p-2 mx-1">
+						<span
+							class="badge badge-pill bg-warning text-dark p-2 mx-1"
+						>
 							{{ totalCartItems }}
 						</span>
 						Total
-						<span class="badge badge-pill bg-warning text-dark p-2 mx-1">
+						<span
+							class="badge badge-pill bg-warning text-dark p-2 mx-1"
+						>
 							{{ totalCartPrice | currency(totalCartPrice) }}
 						</span>
 					</router-link>
@@ -31,7 +35,8 @@
 </template>
 
 <script>
-import { cartItems } from "../fake-data.js";
+//import { cartItems } from "../fake-data.js";
+import axios from "axios";
 
 export default {
 	name: "navigation",
@@ -45,6 +50,11 @@ export default {
 			return "$" + Number.parseFloat(value).toFixed(2);
 		},
 	},
+	created: async function() {
+		const result = await axios.get("/api/users/12345/cart");
+		const cartItems = result.data;
+		this.cartItems = cartItems;
+	},
 	computed: {
 		totalCartItems: function() {
 			return this.cartItems.length;
@@ -57,8 +67,8 @@ export default {
 			return sum;
 		},
 	},
-	mounted: function() {
-		this.cartItems = cartItems;
-	},
+	//mounted: function() {
+	//	this.cartItems = cartItems;
+	//},
 };
 </script>

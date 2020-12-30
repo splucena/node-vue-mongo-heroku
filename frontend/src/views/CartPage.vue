@@ -6,19 +6,24 @@
 </template>
 
 <script>
-import { cartItems } from "../fake-data.js";
-
+//import { cartItems } from "../fake-data.js";
+import axios from "axios";
 import ProductList from "../components/ProductList.vue";
 
 export default {
 	name: "CartPage",
 	data: function() {
 		return {
-			cartItems: cartItems,
+			cartItems: [],
 		};
 	},
 	components: {
 		ProductList,
+	},
+	created: async function() {
+		const result = await axios.get("/api/users/12345/cart");
+		const cartItems = result.data;
+		this.cartItems = cartItems;
 	},
 };
 </script>
