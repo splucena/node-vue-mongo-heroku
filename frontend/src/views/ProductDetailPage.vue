@@ -48,11 +48,12 @@
 </template>
 
 <script>
-import { products } from "../fake-data.js";
+//import { products } from "../fake-data.js";
 import { cartItems } from "../fake-data.js";
 import _ from "lodash";
 
 import NotFoundPage from "./NotFoundPage.vue";
+import axios from "axios";
 
 export default {
 	name: "ProductDetailPage",
@@ -62,7 +63,7 @@ export default {
 	data: function() {
 		return {
 			//cartItems: [],
-			product: products.find((p) => p.id === this.$route.params.id),
+			product: {},
 			isInCart: true,
 			addToCartText: null,
 		};
@@ -79,6 +80,13 @@ export default {
 		totalCartItems: function() {
 			return cartItems.length;
 		},
+	},
+	created: async function() {
+		const result = await axios.get(
+			`/api/products/${this.$route.params.id}`
+		);
+		const product = result.data;
+		this.product = product;
 	},
 	mounted: function() {
 		this.isInCart = _.findIndex(cartItems, {

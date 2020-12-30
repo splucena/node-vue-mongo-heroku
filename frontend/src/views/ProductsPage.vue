@@ -5,7 +5,8 @@
 </template>
 
 <script>
-import { products } from "../fake-data.js";
+import axios from "axios";
+//import { products } from "../fake-data.js";
 import ProductGrid from "../components/ProductGrid.vue";
 
 export default {
@@ -18,7 +19,10 @@ export default {
 	components: {
 		ProductGrid,
 	},
-	mounted: function() {
+	created: async function() {
+		//this.products = products;
+		const result = await axios.get("/api/products");
+		const products = result.data;
 		this.products = products;
 	},
 };
