@@ -16,6 +16,7 @@ app.use(
 app.use(history());
 
 app.get("/api/products", async (req, res) => {
+	console.log(1);
 	const client = await MongoClient.connect(
 		process.env.MONGO_USER && process.env.MONGO_PASS
 			? `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@cluster0.yvjtm.mongodb.net/${process.env.MONGO_DBNAME}?retryWrites=true&w=majority`
@@ -25,8 +26,9 @@ app.get("/api/products", async (req, res) => {
 			useUnifiedTopology: true,
 		}
 	);
-	const db = client.db(process.env.MONGO_DBNAME || "vue_db");
+	const db = client.db(process.env.MONGO_DBNAME || "vue-db");
 	const products = await db.collection("products").find({}).toArray();
+	console.log(products);
 	res.status(200).json(products);
 	client.close();
 });

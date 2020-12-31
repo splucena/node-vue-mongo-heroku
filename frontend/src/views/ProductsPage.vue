@@ -19,9 +19,11 @@ export default {
 		ProductGrid,
 	},
 	created: async function() {
+		console.log(1);
 		const result = await axios.get("/api/products");
 		const products = result.data;
 		this.products = products;
+		console.log(products);
 	},
 };
 </script>
