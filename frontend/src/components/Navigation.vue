@@ -17,6 +17,12 @@
 						>Cart
 						<span
 							class="badge badge-pill bg-warning text-dark p-2 mx-1"
+							@change="
+								$emit(
+									'update:totalCartItems',
+									localTotalCartItems
+								)
+							"
 						>
 							{{ totalCartItems }}
 						</span>
@@ -30,45 +36,22 @@
 				</div>
 			</div>
 		</nav>
-		<router-view />
 	</div>
 </template>
 
 <script>
-//import { cartItems } from "../fake-data.js";
-import axios from "axios";
-
 export default {
 	name: "navigation",
 	data: function() {
 		return {
-			cartItems: [],
+			localTotalCartItems: 0,
 		};
 	},
+	props: ["totalCartItems", "totalCartPrice"],
 	filters: {
 		currency: function(value) {
 			return "$" + Number.parseFloat(value).toFixed(2);
 		},
 	},
-	created: async function() {
-		const result = await axios.get("/api/users/12345/cart");
-		const cartItems = result.data;
-		this.cartItems = cartItems;
-	},
-	computed: {
-		totalCartItems: function() {
-			return this.cartItems.length;
-		},
-		totalCartPrice: function() {
-			let sum = 0;
-			this.cartItems.forEach((p) => {
-				sum += Number(p.price);
-			});
-			return sum;
-		},
-	},
-	//mounted: function() {
-	//	this.cartItems = cartItems;
-	//},
 };
 </script>

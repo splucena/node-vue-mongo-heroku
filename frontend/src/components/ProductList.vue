@@ -21,15 +21,21 @@
 </template>
 
 <script>
-import _ from "lodash";
+//import _ from "lodash";
 import ProductListItem from "../components/ProductListItem.vue";
+import axios from "axios";
 
 export default {
 	name: "ProductList",
 	components: {
 		ProductListItem,
 	},
-	props: ["cartItems"],
+	data: function() {
+		return {
+			//localCartItems: this.cartItems,
+		};
+	},
+	props: ["cartItems", "localCartItems"],
 	filters: {
 		currency: function(value) {
 			return "$" + Number.parseFloat(value).toFixed(2);
@@ -38,16 +44,22 @@ export default {
 	computed: {
 		total: function() {
 			let sum = 0;
-			this.cartItems.forEach((p) => {
-				sum += Number(p.price);
-			});
+			sum = this.cartItems
+				.map((p) => Number(p.price))
+				.reduce((a, b) => a + b);
+
 			return sum;
 		},
 	},
 	methods: {
-		remove: function(product) {
-			let index = _.findIndex(this.cartItems, { id: product.id });
-			this.cartItems.splice(index, 1);
+		remove: async function(product) {
+			let result = await axios.delete(
+				"/api/users/12345/cart/" + product.id
+			);
+			const items = result.data;
+			this.$emit("update:cartItems", items);
+			// Update localCartItems of CartPage.vue
+			this.$parent.$emit("update:localCartItems", items);
 		},
 	},
 };

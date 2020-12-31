@@ -1,7 +1,10 @@
 <template>
 	<div class="container p-0">
 		<h1 class="border-bottom pb-4 mt-4 border-dark">Shopping Cart</h1>
-		<product-list :cartItems="cartItems"></product-list>
+		<product-list
+			:cartItems.sync="cartItems"
+			:localCartItems.sync="localCartItems"
+		></product-list>
 	</div>
 </template>
 
@@ -17,6 +20,7 @@ export default {
 			cartItems: [],
 		};
 	},
+	props: ["localCartItems"],
 	components: {
 		ProductList,
 	},
@@ -24,6 +28,9 @@ export default {
 		const result = await axios.get("/api/users/12345/cart");
 		const cartItems = result.data;
 		this.cartItems = cartItems;
+
+		// Update localCartItems of parent App.vue
+		//this.$emit("update:localCartItems", this.cartItems);
 	},
 };
 </script>

@@ -27,7 +27,6 @@
 	</div>
 </template>
 <script>
-import { cartItems } from "../fake-data.js";
 export default {
 	name: "checkout",
 	data: function() {
@@ -35,6 +34,7 @@ export default {
 			cartItems: [],
 		};
 	},
+	props: ["localCartItems"],
 	filters: {
 		currency: function(value) {
 			return "$" + Number.parseFloat(value).toFixed(2);
@@ -43,15 +43,15 @@ export default {
 	computed: {
 		totalPrice: function() {
 			let sum = 0;
-			this.cartItems.forEach((p) => {
-				sum += Number(p.price);
-			});
+			sum = this.cartItems
+				.map((p) => Number(p.price))
+				.reduce((a, b) => a + b);
 
 			return sum;
 		},
 	},
-	mounted: function() {
-		this.cartItems = cartItems;
+	created: function() {
+		this.cartItems = this.localCartItems;
 	},
 };
 </script>

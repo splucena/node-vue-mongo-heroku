@@ -49,7 +49,7 @@
 
 <script>
 //import { products } from "../fake-data.js";
-import { cartItems } from "../fake-data.js";
+//import { cartItems } from "../fake-data.js";
 import _ from "lodash";
 
 import NotFoundPage from "./NotFoundPage.vue";
@@ -62,37 +62,46 @@ export default {
 	},
 	data: function() {
 		return {
-			//cartItems: [],
+			cartItems: [],
 			product: {},
 			isInCart: true,
 			addToCartText: null,
 		};
 	},
+	props: ["localCartItems"],
 	methods: {
-		add: function(item, isInCart) {
+		add: async function(item, isInCart) {
+			// Add item to user's cart
 			if (isInCart === -1) {
-				cartItems.push(item);
+				const result = await axios.post("/api/users/12345/cart", {
+					productId: item.id,
+				});
+
+				const items = result.data;
+				this.$emit("update:localCartItems", items);
 				this.$router.push("/products");
 			}
 		},
 	},
-	computed: {
-		totalCartItems: function() {
-			return cartItems.length;
-		},
-	},
 	created: async function() {
+		// Fetch products from database
 		const result = await axios.get(
 			`/api/products/${this.$route.params.id}`
 		);
 		const product = result.data;
 		this.product = product;
-	},
-	mounted: function() {
+
+		// Fetch user cart items from database
+		const cartResult = await axios.get("/api/users/12345/cart");
+		const cartItems = cartResult.data;
+		this.cartItems = cartItems;
+
+		// Check if item is already in user's cart
 		this.isInCart = _.findIndex(cartItems, {
 			id: this.$route.params.id,
 		});
 
+		// Assign appropirate text to addToCartText button
 		this.addToCartText =
 			this.isInCart === -1 ? "Add to Cart" : "Already in Cart";
 	},
