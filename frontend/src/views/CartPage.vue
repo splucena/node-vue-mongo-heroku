@@ -9,7 +9,6 @@
 </template>
 
 <script>
-//import { cartItems } from "../fake-data.js";
 import axios from "axios";
 import ProductList from "../components/ProductList.vue";
 
@@ -28,9 +27,6 @@ export default {
 		const result = await axios.get("/api/users/12345/cart");
 		const cartItems = result.data;
 		this.cartItems = cartItems;
-
-		// Update localCartItems of parent App.vue
-		//this.$emit("update:localCartItems", this.cartItems);
 	},
 };
 </script>

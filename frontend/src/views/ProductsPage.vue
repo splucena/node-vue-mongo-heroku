@@ -6,7 +6,6 @@
 
 <script>
 import axios from "axios";
-//import { products } from "../fake-data.js";
 import ProductGrid from "../components/ProductGrid.vue";
 
 export default {
@@ -20,7 +19,6 @@ export default {
 		ProductGrid,
 	},
 	created: async function() {
-		//this.products = products;
 		const result = await axios.get("/api/products");
 		const products = result.data;
 		this.products = products;

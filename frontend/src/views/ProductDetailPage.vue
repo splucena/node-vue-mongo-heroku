@@ -48,8 +48,6 @@
 </template>
 
 <script>
-//import { products } from "../fake-data.js";
-//import { cartItems } from "../fake-data.js";
 import _ from "lodash";
 
 import NotFoundPage from "./NotFoundPage.vue";

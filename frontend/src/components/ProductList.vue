@@ -58,7 +58,7 @@ export default {
 			);
 			const items = result.data;
 			this.$emit("update:cartItems", items);
-			// Update localCartItems of CartPage.vue
+			// Update localCartItems of App.vue
 			this.$parent.$emit("update:localCartItems", items);
 		},
 	},
