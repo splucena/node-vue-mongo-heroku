@@ -22,3 +22,11 @@ db.products.find({id: '123'}).pretty() # find by id, returns an array
 db.products.findOne({id: '123'}).pretty() # returns an object
 
 ```
+
+### Build
+
+```
+Frontend npm run build
+Copy dist folder to Backend root folder
+Install npm i --save connect-history-api-fallback
+```
