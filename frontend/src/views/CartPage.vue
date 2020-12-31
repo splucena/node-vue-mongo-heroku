@@ -25,6 +25,11 @@ export default {
 	},
 	created: async function() {
 		const result = await axios.get("/api/users/12345/cart");
+
+		// or const { data: products } = await axios.get("/api/users/12345/cart");
+		// where data is a key from the result of the axios call
+		// products name of the variable data is assigned to
+		// const cartItems = products;
 		const cartItems = result.data;
 		this.cartItems = cartItems;
 	},

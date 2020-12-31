@@ -1,9 +1,20 @@
 <template>
 	<div id="app" class="m-0 p-0">
 		<div
-			class="d-flex align-items-center justify-content-center bg-success text-white m-0 p-4"
+			class="d-flex align-items-center justify-content-center bg-primary text-white m-0 p-4"
 		>
-			<h1 class="display-1">Pure Vuesomeness</h1>
+			<div class="justify-content-center">
+				<h1 class="display-1">
+					FullStack <span class="text-success">Vue</span>someness
+				</h1>
+				<span class="float-right"
+					><span class="text-warning">Node</span> |
+					<span class="text-success">Vue</span> |
+					<span class="text-light">Bootstrap</span> |
+					<span class="text-info">Mongo</span> |
+					<span class="text-danger">Heroku</span></span
+				>
+			</div>
 		</div>
 		<nav
 			class="site-nav navbar navbar-expand navbar-light bg-light shadow sticky-top"
